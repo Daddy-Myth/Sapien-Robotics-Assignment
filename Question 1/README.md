@@ -5,6 +5,7 @@ This project implements a **complete object detection pipeline trained entirely 
 
 The objective of this project is **not to maximize benchmark performance**, but to gain a deep, end-to-end understanding of modern object detection systems, including **region proposal generation, multi-task loss optimization, and training dynamics of two-stage detectors**.
 
+
 ## 2. Dataset
 
 ### Dataset Source
@@ -119,65 +120,83 @@ This closely follows the original **Faster R-CNN multi-task training objective**
 
 
 ## 6. Data Augmentation
-Minimal data augmentation is used to maintain training stability when learning from scratch.
 
-### Implemented Augmentation
-- **Random horizontal flip** (50% probability)
+Data augmentation is applied selectively during training to improve robustness while maintaining stability when training the model from scratch.
 
-Bounding boxes are correctly transformed when flipping is applied.
+### Implemented Augmentations
+- **Random horizontal flip** (50% probability), with bounding boxes adjusted accordingly  
+- **Color jitter**, including:
+  - Brightness jitter  
+  - Saturation jitter  
+- **Gaussian blur** applied with low probability to simulate mild image degradation  
 
-> **Note:** More aggressive augmentations (e.g., scale jittering, color jitter, random cropping) can improve generalization but were intentionally omitted to keep training behavior interpretable.
+All augmentations are applied **only during training** and are chosen such that bounding box geometry remains valid.
+
+> **Note:** More aggressive geometric augmentations (e.g., random cropping, rotation, perspective transforms) were intentionally avoided, as they require complex bounding box remapping and can destabilize training in two-stage detectors trained from scratch.
 
 
-## 6. Evaluation Metrics
-Evaluation is performed on the validation split using standard object detection metrics.
+## 7. Quantitative Evaluation
 
-| Metric | Value |
-|------|------|
-| mAP @ IoU 0.5 | TBD |
-| Inference Speed (FPS) | TBD |
-| Model Size | TBD |
+### Mean Average Precision (IoU = 0.5)
 
-- **mAP** is computed using class-wise Average Precision  
-- **FPS** is measured during inference on the RTX 4080  
-- **Model size** refers to the serialized `.pth` checkpoint  
+| Class      | AP     |
+|-----------|--------|
+| Aeroplane | 0.4127 |
+| Bicycle   | 0.2639 |
+| Car       | 0.1725 |
+| Cat       | 0.4753 |
+| Person    | 0.3141 |
+| **mAP**   | **0.3277** |
+
+### Inference Performance
+
+| Metric                  | Value        |
+|------------------------|--------------|
+| Average inference time | 35.39 ms     |
+| Inference FPS          | 28.25 FPS    |
+| Device                 | NVIDIA RTX 4080 |
+
+### Model Size
+
+| Metric                  | Value     |
+|------------------------|-----------|
+| Model size (disk)      | 167.36 MB |
+| Number of parameters   | 43.87 M   |
 
 
 ## 8. Qualitative Results
 
 ### Sample Predictions
-*(Add images here)*assets/sample_predictions/
+Inference examples with predicted bounding boxes and class confidences are shown below:
+![Inference example](assets/sample_predictions/output_1.jpg)
+
+### Real-Time Inference Demo
+A real-time inference video demonstrating bounding box stability and detection speed is provided below:
+[▶ Watch real-time inference demo](assets/demo_frcnn_720p.mp4)
 
 
-### Real-Time Detection Demo
-*(Add GIFs or videos here)* assets/demo_gifs/
-
+> **Note:** The video is recorded directly from notebook inference and demonstrates real-time detection performance without post-processing.
 
 These qualitative results demonstrate **bounding box localization quality, class predictions, and real-time inference behavior**.
 
 
 ## 9. Results Discussion
-Training Faster R-CNN **from scratch** introduces clear trade-offs:
-- Lower accuracy compared to pretrained models due to lack of ImageNet initialization  
-- Longer training time to reach convergence  
-- Improved interpretability and architectural understanding  
 
-Despite lower mAP, this project provides valuable insight into:
-- Proposal quality vs classification accuracy  
-- Sensitivity of RPN training  
-- Stability challenges in two-stage detectors  
+The model achieves an **mAP of 0.3277**, which is consistent with expectations for a **Faster R-CNN trained entirely from scratch** on a limited dataset. Higher AP is observed for visually distinctive classes such as *cat* and *aeroplane*, while classes with greater intra-class variation (e.g., *car* and *bicycle*) exhibit lower AP.
 
+Despite the lack of pretraining, the model achieves an inference speed of **~28 FPS**, demonstrating an efficient implementation and reasonable runtime performance for a two-stage detector.
 
 ## 10. Accuracy vs Speed Trade-Offs
 
 | Aspect | Faster R-CNN (This Project) |
 |------|-----------------------------|
-| Detection Accuracy | High (relative to training from scratch) |
-| Inference Speed | Moderate |
-| Model Size | Large |
-| Training Complexity | High |
-
-Faster R-CNN is chosen deliberately to prioritize **localization accuracy and architectural understanding** over raw inference speed.
+| Mean Average Precision (IoU = 0.5) | 0.3277 |
+| Inference Speed | 28.25 FPS |
+| Average Inference Time | 35.39 ms |
+| Model Size (Disk) | 167.36 MB |
+| Number of Parameters | 43.87 M |
+| Training Epochs | 20 |
+| Training Time per Epoch | ~3.5 minutes |
 
 
 ## 11. How to Run
