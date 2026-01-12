@@ -168,11 +168,18 @@ All augmentations are applied **only during training** and are chosen such that 
 
 ### Sample Predictions
 Inference examples with predicted bounding boxes and class confidences are shown below:
-![Inference example](assets/sample_predictions/output_1.jpg)
+<p align="center">
+  <img src="Assets/aeroplane.png" width="180"/>
+  <img src="Assets/cat1.png" width="180"/>
+  <img src="Assets/jets.png" width="180"/>
+  <img src="Assets/multiperson.png" width="180"/>
+  <img src="Assets/person1.png" width="180"/>
+  <img src="Assets/person_bike.png" width="180"/>
+</p>
 
 ### Real-Time Inference Demo
 A real-time inference video demonstrating bounding box stability and detection speed is provided below:
-[▶ Watch real-time inference demo](assets/demo_frcnn_720p.mp4)
+[▶ Watch real-time inference demo](Assets/real_time_detection.mp4)
 
 
 > **Note:** The video is recorded directly from notebook inference and demonstrates real-time detection performance without post-processing.
