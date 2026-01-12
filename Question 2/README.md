@@ -6,7 +6,7 @@ The system is designed to detect defects **before packaging**, localize them pre
 
 ### Example PCB Defect Detection Output
 
-![Sample PCB defect detection](assets/sample_prediction.png)
+<img src="Images/sample_predictions.png" width="600">
 
 *Example output showing detected PCB defects with bounding boxes, class labels, and confidence scores.*
 
@@ -34,9 +34,9 @@ The system is designed to detect defects **before packaging**, localize them pre
 
 ### Sample Defect Types from Dataset
 
-![Missing hole defect](assets/defect_missing_hole.jpg)
-![Mouse bite defect](assets/defect_mouse_bite.jpg)
-![Open circuit defect](assets/defect_open_circuit.jpg)
+<img src="Images/defect_missing_hole.png" width="400">
+<img src="Images/defect_mouse_bite.png" width="400">
+<img src="Images/defect_open_circuit.png" width="400">
 
 *Examples of different PCB defect types present in the dataset.*
 
@@ -95,8 +95,8 @@ The pretrained model fails due to domain mismatch. Fine-tuning enables accurate 
 
 ### Evaluation Visualizations
 
-![Precision-Recall Curve](assets/pr_curve.png)
-![Confusion Matrix](assets/confusion_matrix.png)
+<img src="Images/pr_curve.png" width="500">
+<img src="Images/confusion_matrix.png" width="500">
 
 *Precision–Recall curve and confusion matrix for the fine-tuned model on the validation set.*
 
@@ -110,7 +110,7 @@ Ground-truth and predicted bounding boxes were overlaid to visually inspect thes
 No medium or high severity defects were missed.
 ### Failure Case Visualization
 
-![Failure analysis example](assets/failure_overlay.png)
+<img src="Images/failure_overlay.png" width="600">
 
 *Ground-truth (red) and predicted (green) bounding boxes overlaid for a low-confidence or missed detection case.*
 
