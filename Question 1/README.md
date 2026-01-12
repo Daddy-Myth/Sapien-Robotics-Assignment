@@ -179,7 +179,9 @@ Inference examples with predicted bounding boxes and class confidences are shown
 
 ### Real-Time Inference Demo
 A real-time inference video demonstrating bounding box stability and detection speed is provided below:
-[▶ Watch real-time inference demo](Assets/real_time_detection.mp4)
+<p align="center">
+  <img src="Assets/real_time_detection.gif" width="700"/>
+</p>
 
 
 > **Note:** The video is recorded directly from notebook inference and demonstrates real-time detection performance without post-processing.
