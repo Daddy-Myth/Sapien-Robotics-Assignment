@@ -197,7 +197,7 @@ Despite the lack of pretraining, the model achieves an inference speed of **~28 
 
 ## 10. Accuracy vs Speed Trade-Offs
 
-| Aspect | Faster R-CNN (This Project) |
+| Aspect | Faster R-CNN |
 |------|-----------------------------|
 | Mean Average Precision (IoU = 0.5) | 0.3277 |
 | Inference Speed | 28.25 FPS |
